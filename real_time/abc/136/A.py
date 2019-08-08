@@ -1,35 +1,3 @@
-import math, string, itertools, fractions, heapq, collections, re,  array, bisect, sys, random, time, copy, functools
-
-
-sys.setrecursionlimit(10**7)
-inf = 10 ** 20
-eps = 1.0 / 10**10
-mod = 10**9+7
-dd = [(-1, 0), (0, 1), (1, 0), (0, -1)]
-ddn = [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)]
-
-
-def LI(): return [int(x) for x in sys.stdin.readline().split()]
-def LI_(): return [int(x)-1 for x in sys.stdin.readline().split()]
-def LF(): return [float(x) for x in sys.stdin.readline().split()]
-def LS(): return sys.stdin.readline().split()
-def I(): return int(sys.stdin.readline())
-def F(): return float(sys.stdin.readline())
-def S(): return input()
-def pf(s): return print(s, flush=True)
-
-
-def main():
-
-
-if __name__ == "__main__":
-    main()
-
-
-"""
-別バージョン
-"""
-
 import math, string, itertools, fractions, heapq, collections, re,  array, bisect, sys, random, time, copy, functools, os
 sys.setrecursionlimit(10**7)
 inf = 10 ** 20
@@ -50,9 +18,8 @@ def debug(x, table):
             print('- {} -> {}'.format(name, val), file=sys.stderr)
             return None
 
-def main(N, A):
-    # 処理を書く
-    return N
+def main():
+    return
 
 
 if __name__ == '__main__':
@@ -69,9 +36,14 @@ if __name__ == '__main__':
             input_value = input_value.split('\n')
             #  N = int(input_value[0])
             #  A = list(map(int, input_value[1].split()))
-            ans = main(N, A)
+            ans = main()
             expected_value = int(input_value[2])
             assert ans == expected_value, 'failed: ans: {ans}, exp: {exp}'.format(ans=ans, exp=expected_value)
     else:
-        print(main(N, A))
+        A, B, C = LI()
+        ans = C- (A-B)
+        if ans < 0:
+            ans = 0
+        print(ans)
+        #  print(main())
 
