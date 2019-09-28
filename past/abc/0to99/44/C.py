@@ -40,23 +40,68 @@ A4なら
 7 9 7 9 7 9 7 9 7 9 だった場合
 
 """
-ans = 0
-def main():
-    global ans
-    def dfs(card_num, selected_cards):
-        global ans
-        if card_num == N:
-            if selected_cards == []:
-                return
-            average = sum(selected_cards) / len(selected_cards)
-            #  print(average, selected_cards)
-            if average == A:
-                #  print('equal')
-                ans += 1
-            return
-        dfs(card_num+1, selected_cards + [X[card_num]])
-        dfs(card_num+1, selected_cards)
-    dfs(0, [])
-if __name__ == "__main__":
-    main()
-    print(ans)
+ans = []
+for i in range(N):
+    tmp = 0
+    if X[i] == A:
+        tmp += 1
+
+    for j in range(i+1, N):
+        if (X[i] + X[j]) / 2 == A:
+            tmp += 1
+    ans.append(tmp)
+print(ans)
+res = 0
+for a in ans:
+    if a != 0:
+        res += int(a)
+
+print(res)
+tmp = 0
+for a in ans:
+    if a == 0:
+        continue
+    
+    if tmp == 0:
+        tmp = a
+    else:
+        tmp *= a
+res += tmp
+print(res)
+#  for aidx in range(len(ans)):
+#      tmp = 0
+#      for j in ans[aidx:]:
+#          print('j', j, tmp)
+#          if j == 0:
+#              continue
+#          else:
+#              if tmp == 0:
+#                  tmp = int(j)
+#              else:
+#                  tmp *= int(j)
+#      print('tmp', tmp)
+#      res += tmp
+#  print(res)
+
+
+
+#  ans = 0
+#  def main():
+#      global ans
+#      def dfs(card_num, selected_cards):
+#          global ans
+#          if card_num == N:
+#              if selected_cards == []:
+#                  return
+#              average = sum(selected_cards) / len(selected_cards)
+#              #  print(average, selected_cards)
+#              if average == A:
+#                  #  print('equal')
+#                  ans += 1
+#              return
+#          dfs(card_num+1, selected_cards + [X[card_num]])
+#          dfs(card_num+1, selected_cards)
+#      dfs(0, [])
+#  if __name__ == "__main__":
+#      main()
+#      print(ans)

@@ -15,28 +15,49 @@ def _pf(s): return print(s, flush=True)
 
 N, K = LI()
 D = LI()
-nums = [i for i in range(0, 10) if i not in D]
+nums = [str(i) for i in range(0, 10) if i not in D]
 
 """
 使える数字の中で一番低いものから試していく
 見つかったら各桁試していく
 
 """
-N = str(N)
-ans = []
-is_done = False
-for n in N:
-    if is_done:
-        break
-    for num in nums:
-        if int(n) <= num:
-            # このnumを使用する
-            ans.append(num)
-            break
-    else:
-        # 超える数字がなかった
-        ans = [n + 1, nums[0], nums[0], nums[0], nums[0]]
-        is_done = True
 
-for a in ans:
-    print(a, end = '')
+all_nums = []
+for i in range(N, 99999):
+    # 全数字の列挙
+    all_nums.append(i)
+for num in all_nums:
+    if num >= N:
+        if all(i in nums for i in str(num)):
+            print(num)
+            exit()
+
+
+
+
+
+
+#  if len(nums) == 1:
+#      print(str(nums[0])*len(str(N)))
+#      exit()
+
+
+#  N = str(N)
+#  ans = []
+#  is_done = False
+#  for n in N:
+#      if is_done:
+#          break
+#      for num in nums:
+#          if int(n) <= num:
+#              # このnumを使用する
+#              ans.append(num)
+#              break
+#      else:
+#          # 超える数字がなかった
+#          ans = [n + 1, nums[0], nums[0], nums[0], nums[0]]
+#          is_done = True
+
+#  for a in ans:
+#      print(a, end = '')
