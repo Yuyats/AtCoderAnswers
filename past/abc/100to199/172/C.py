@@ -1,5 +1,5 @@
 import math, string, itertools, fractions, heapq, collections, re,  array, bisect, sys, random, time, copy, functools
-
+import numpy
 inf = 10 ** 20
 eps = 1.0 / 10**10
 mod = 10**9+7
@@ -16,41 +16,64 @@ def _pf(s): return print(s, flush=True)
 N,M,K = LI()
 A = LI()
 B = LI()
+"""
+累積和
+iを固定で0からNまでループ
+jを固定でMから0までループ
+jは前回の値から開始
 
-A_cum = [A[0]]
-[A_cum.append(A_cum[i-1] + A[i]) for i in range(1, len(A))]
-print(A_cum)
-print([a/(aidx+1) for aidx, a in enumerate(A_cum)])
+iだけでKを超えてしまう場合はiなしでチェック
+"""
 
-B_cum = [B[0]]
-[B_cum.append(B_cum[i-1] + B[i]) for i in range(1, len(B))]
-print(B_cum)
-print([b/(bidx+1) for bidx, b in enumerate(B_cum)])
-
-A = []
-for a in A_cum:
-    if a > K:
-        break
-    else:
-        A.append(a)
-
-B = []
-for b in B_cum:
-    if b > K:
-        break
-    else:
-        B.append(b)
-
-print(A,B)
-
+cum_a = [0] + list(numpy.cumsum(A))
+cum_b = [0] + list(numpy.cumsum(B))
+#  print(cum_a, cum_b)
 
 ans = 0
-for aidx, a in enumerate(A):
-    for bidx, b in enumerate(B):
-        print(aidx, bidx)
-        if a + b > K:
-            ans = max(ans, aidx + bidx + 2 - 1)
+for i in range(N+1):
+    #  print('i', i)
+    now = cum_a[i]
+    if now > K:
+        # AだけでKを超えている場合は終了
+        ans = max(i - 1, ans, 0)
+        #  print('ans first', ans)
+        #  break
+    #  else:
+    # Bの本とあわせる場合、上から見ていく
+    for j in range(M, -1, -1):
+        #  print(' j', j, 'm', M)
+        if now + cum_b[j] <= K:
+            # あわせて下回るまで計算
+            ans = max(i + j, ans)
+            #  print('ans middle', ans)
+            M = j
+            #  print('middle')
             break
     else:
-        ans = max(ans, aidx + bidx + 2)
+        # Mをぎりぎりまで減らしてもだめな場合
+        ans = max(i-1, ans)
+        #  print('ans last', ans)
+        #  print('last')
+        break
 print(ans)
+
+
+#  N, M, K = map(int, input().split())
+#  A = list(map(int, input().split()))
+#  B = list(map(int, input().split()))
+
+#  a, b = [0], [0]
+#  for i in range(N):
+#      a.append(a[i] + A[i])
+#  for i in range(M):
+#      b.append(b[i] + B[i])
+#  print(a, b)
+#  ans, j = 0, M
+#  for i in range(N + 1):
+#      print(i)
+#      if a[i] > K:
+#          break
+#      while b[j] > K - a[i]:
+#          j -= 1
+#      ans = max(ans, i + j)
+#  print(ans)
